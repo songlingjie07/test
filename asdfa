@@ -1,0 +1,13 @@
+private String[] getOrgDns(String rootOrgDn, String targetOrgDn) {
+		rootOrgDn = processLdapPath(rootOrgDn);
+		targetOrgDn = processLdapPath(targetOrgDn);
+
+		String orgStr = targetOrgDn.replace("," + rootOrgDn, "");
+		String[] orgArray = orgStr.split(",");
+		orgArray[orgArray.length - 1] = orgArray[orgArray.length - 1] + ","
+				+ rootOrgDn;
+		for (int i = orgArray.length - 2; i >= 0; i--) {
+			orgArray[i] = orgArray[i] + "," + orgArray[i + 1];
+		}
+		return orgArray;
+	}
